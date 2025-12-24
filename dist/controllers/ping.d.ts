@@ -1,5 +1,5 @@
 import { Controller } from "tsoa";
-export declare class pingController extends Controller {
+export declare class PingController extends Controller {
     ping(): {
         message: string;
     };

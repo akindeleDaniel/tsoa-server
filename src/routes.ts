@@ -4,9 +4,11 @@
 import type { TsoaRoute } from '@tsoa/runtime';
 import {  fetchMiddlewares, ExpressTemplateService } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { PingController } from './../controllers/ping';
+import { userControllerRegister } from './controllers/register';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { userControllerlogin } from '../controllers/login';
+import { PingController } from './controllers/ping';
+// WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+import { userControllerlogin } from './controllers/login';
 import type { Request as ExRequest, Response as ExResponse, RequestHandler, Router } from 'express';
 
 
@@ -14,6 +16,19 @@ import type { Request as ExRequest, Response as ExResponse, RequestHandler, Rout
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
+    "CreateUser": {
+        "dataType": "refObject",
+        "properties": {
+            "firstName": {"dataType":"string","required":true},
+            "lastName": {"dataType":"string","required":true},
+            "gender": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["male"]},{"dataType":"enum","enums":["female"]}],"required":true},
+            "dob": {"dataType":"string","required":true},
+            "email": {"dataType":"string","required":true},
+            "password": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 };
 const templateService = new ExpressTemplateService(models, {"noImplicitAdditionalProperties":"throw-on-extras","bodyCoercion":true});
 
@@ -31,19 +46,49 @@ export function RegisterRoutes(app: Router) {
 
 
     
-        const argspingController_ping: Record<string, TsoaRoute.ParameterSchema> = {
+        const argsuserControllerRegister_register: Record<string, TsoaRoute.ParameterSchema> = {
+                body: {"in":"body","name":"body","required":true,"ref":"CreateUser"},
         };
-        app.get('/ping',
-            ...(fetchMiddlewares<RequestHandler>(PingController)),
-            ...(fetchMiddlewares<RequestHandler>(PingController.prototype.ping)),
+        app.post('/user/register',
+            ...(fetchMiddlewares<RequestHandler>(userControllerRegister)),
+            ...(fetchMiddlewares<RequestHandler>(userControllerRegister.prototype.register)),
 
-            async function pingController_ping(request: ExRequest, response: ExResponse, next: any) {
+            async function userControllerRegister_register(request: ExRequest, response: ExResponse, next: any) {
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
             let validatedArgs: any[] = [];
             try {
-                validatedArgs = templateService.getValidatedArgs({ args: argspingController_ping, request, response });
+                validatedArgs = templateService.getValidatedArgs({ args: argsuserControllerRegister_register, request, response });
+
+                const controller = new userControllerRegister();
+
+              await templateService.apiHandler({
+                methodName: 'register',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsPingController_ping: Record<string, TsoaRoute.ParameterSchema> = {
+        };
+        app.get('/ping',
+            ...(fetchMiddlewares<RequestHandler>(PingController)),
+            ...(fetchMiddlewares<RequestHandler>(PingController.prototype.ping)),
+
+            async function PingController_ping(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsPingController_ping, request, response });
 
                 const controller = new PingController();
 
@@ -60,20 +105,20 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        const argsuserController_login: Record<string, TsoaRoute.ParameterSchema> = {
+        const argsuserControllerlogin_login: Record<string, TsoaRoute.ParameterSchema> = {
                 body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"password":{"dataType":"string","required":true},"email":{"dataType":"string","required":true}}},
         };
         app.post('/user/login',
             ...(fetchMiddlewares<RequestHandler>(userControllerlogin)),
             ...(fetchMiddlewares<RequestHandler>(userControllerlogin.prototype.login)),
 
-            async function userController_login(request: ExRequest, response: ExResponse, next: any) {
+            async function userControllerlogin_login(request: ExRequest, response: ExResponse, next: any) {
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
             let validatedArgs: any[] = [];
             try {
-                validatedArgs = templateService.getValidatedArgs({ args: argsuserController_login, request, response });
+                validatedArgs = templateService.getValidatedArgs({ args: argsuserControllerlogin_login, request, response });
 
                 const controller = new userControllerlogin();
 
