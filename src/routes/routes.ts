@@ -6,7 +6,7 @@ import {  fetchMiddlewares, ExpressTemplateService } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { PingController } from './../controllers/ping';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { userControllerlogin } from '../controllers/login';
+import { LoginController } from '../controllers/login';
 import type { Request as ExRequest, Response as ExResponse, RequestHandler, Router } from 'express';
 
 
@@ -64,8 +64,8 @@ export function RegisterRoutes(app: Router) {
                 body: {"in":"body","name":"body","required":true,"dataType":"nestedObjectLiteral","nestedProperties":{"password":{"dataType":"string","required":true},"email":{"dataType":"string","required":true}}},
         };
         app.post('/user/login',
-            ...(fetchMiddlewares<RequestHandler>(userControllerlogin)),
-            ...(fetchMiddlewares<RequestHandler>(userControllerlogin.prototype.login)),
+            ...(fetchMiddlewares<RequestHandler>(LoginController)),
+            ...(fetchMiddlewares<RequestHandler>(LoginController.prototype.login)),
 
             async function userController_login(request: ExRequest, response: ExResponse, next: any) {
 
@@ -75,7 +75,7 @@ export function RegisterRoutes(app: Router) {
             try {
                 validatedArgs = templateService.getValidatedArgs({ args: argsuserController_login, request, response });
 
-                const controller = new userControllerlogin();
+                const controller = new LoginController();
 
               await templateService.apiHandler({
                 methodName: 'login',

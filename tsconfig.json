@@ -1,6 +1,5 @@
 {
   // Visit https://aka.ms/tsconfig to read more about this file
-  "include": ["src", "types"],
   "compilerOptions": {
     // File Layout
     "rootDir": "./src",
@@ -47,6 +46,6 @@
     "skipLibCheck": true,
     "moduleResolution": "nodenext",
     "typeRoots":["./node_modules/@types", "./types"]
-  }
-  
+  },
+  "include": ["src/**/*"]
 }

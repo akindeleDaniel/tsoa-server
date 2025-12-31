@@ -1,14 +1,27 @@
 import { Controller } from "tsoa";
-import type { CreateUser } from "../models/User";
-export declare class userControllerRegister extends Controller {
-    register(body: CreateUser): Promise<{
+export declare class RegisterController extends Controller {
+    register(body: {
+        firstName: string;
+        lastName: string;
+        gender: "male" | "female" | "others";
+        dob: string;
+        email: string;
+        password: string;
+    }): Promise<{
+        message: string;
+        user?: undefined;
+    } | {
         message: string;
         user: {
             firstName: string;
             lastName: string;
-            email: string;
+            gender: "male" | "female" | "other";
             dob: string;
-            gender: "male" | "female";
+            email: string;
+            createdAt: NativeDate;
+            updatedAt: NativeDate;
+            _id: import("mongoose").Types.ObjectId;
+            __v: number;
         };
     }>;
 }

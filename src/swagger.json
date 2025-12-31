@@ -7,41 +7,57 @@
 		"requestBodies": {},
 		"responses": {},
 		"schemas": {
-			"CreateUser": {
+			"mongoose.ObjectIdToString_Omit_mongoose.Require_id_DocType-and-TVirtuals_.__v__": {
+				"$ref": "#/components/schemas/mongoose.ObjectIdToString_Omit_mongoose.Require_id_DocType-and-TVirtuals_.__v__",
+				"description": "Converts any ObjectId properties into strings for JSON serialization"
+			},
+			"mongoose.Document_unknown.__._firstName-string--lastName-string--gender-male-or-female-or-other--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps._id-string_._timestamps-true__": {
+				"$ref": "#/components/schemas/mongoose.ObjectIdToString_Omit_mongoose.Require_id_DocType-and-TVirtuals_.__v__",
+				"description": "Generic types for Document:\n*  T - the type of _id\n*  TQueryHelpers - Object with any helpers that should be mixed into the Query type\n*  DocType - the type of the actual Document created"
+			},
+			"Pick__firstName-string--lastName-string--gender-male-or-female-or-other--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps-and-__id-mongoose.Types.ObjectId_-and-___v-number_.Exclude_keyof_firstName-string--lastName-string--gender-male-or-female-or-other--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps-and-__id-mongoose.Types.ObjectId_-and-___v-number_.id__": {
+				"properties": {},
+				"type": "object",
+				"description": "From T, pick a set of properties whose keys are in the union K"
+			},
+			"Omit__firstName-string--lastName-string--gender-male-or-female-or-other--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps-and-__id-mongoose.Types.ObjectId_-and-___v-number_.id_": {
+				"$ref": "#/components/schemas/Pick__firstName-string--lastName-string--gender-male-or-female-or-other--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps-and-__id-mongoose.Types.ObjectId_-and-___v-number_.Exclude_keyof_firstName-string--lastName-string--gender-male-or-female-or-other--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps-and-__id-mongoose.Types.ObjectId_-and-___v-number_.id__",
+				"description": "Construct a type with the properties of T except for those in type K."
+			},
+			"UpdateUserRequest": {
 				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
 					"firstName": {
 						"type": "string"
 					},
 					"lastName": {
 						"type": "string"
 					},
+					"dob": {
+						"type": "string"
+					},
 					"gender": {
 						"type": "string",
 						"enum": [
 							"male",
-							"female"
+							"female",
+							"other"
 						]
-					},
-					"dob": {
-						"type": "string"
-					},
-					"email": {
-						"type": "string"
-					},
-					"password": {
-						"type": "string"
 					}
 				},
-				"required": [
-					"firstName",
-					"lastName",
-					"gender",
-					"dob",
-					"email",
-					"password"
-				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"NativeDate": {
+				"type": "string"
+			},
+			"mongoose.Types.ObjectId": {
+				"type": "string"
 			}
 		},
 		"securitySchemes": {}
@@ -55,6 +71,94 @@
 		"contact": {}
 	},
 	"paths": {
+		"/user/{email}": {
+			"put": {
+				"operationId": "UpdateUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"allOf": [
+												{
+													"$ref": "#/components/schemas/mongoose.Document_unknown.__._firstName-string--lastName-string--gender-male-or-female-or-other--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps._id-string_._timestamps-true__"
+												},
+												{
+													"$ref": "#/components/schemas/Omit__firstName-string--lastName-string--gender-male-or-female-or-other--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps-and-__id-mongoose.Types.ObjectId_-and-___v-number_.id_"
+												},
+												{
+													"properties": {
+														"id": {
+															"type": "string"
+														}
+													},
+													"required": [
+														"id"
+													],
+													"type": "object"
+												}
+											]
+										},
+										{
+											"properties": {
+												"error": {},
+												"message": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"message"
+											],
+											"type": "object"
+										},
+										{
+											"properties": {
+												"error": {},
+												"message": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"error",
+												"message"
+											],
+											"type": "object"
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "email",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UpdateUserRequest"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/user/register": {
 			"post": {
 				"operationId": "Register",
@@ -64,47 +168,81 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"properties": {
-										"user": {
+									"anyOf": [
+										{
 											"properties": {
-												"gender": {
-													"type": "string",
-													"enum": [
-														"male",
-														"female"
-													]
-												},
-												"dob": {
-													"type": "string"
-												},
-												"email": {
-													"type": "string"
-												},
-												"lastName": {
-													"type": "string"
-												},
-												"firstName": {
+												"user": {},
+												"message": {
 													"type": "string"
 												}
 											},
 											"required": [
-												"gender",
-												"dob",
-												"email",
-												"lastName",
-												"firstName"
+												"message"
 											],
 											"type": "object"
 										},
-										"message": {
-											"type": "string"
+										{
+											"properties": {
+												"user": {
+													"properties": {
+														"__v": {
+															"type": "number",
+															"format": "double"
+														},
+														"_id": {
+															"$ref": "#/components/schemas/mongoose.Types.ObjectId"
+														},
+														"updatedAt": {
+															"$ref": "#/components/schemas/NativeDate"
+														},
+														"createdAt": {
+															"$ref": "#/components/schemas/NativeDate"
+														},
+														"email": {
+															"type": "string"
+														},
+														"dob": {
+															"type": "string"
+														},
+														"gender": {
+															"type": "string",
+															"enum": [
+																"male",
+																"female",
+																"other"
+															]
+														},
+														"lastName": {
+															"type": "string"
+														},
+														"firstName": {
+															"type": "string"
+														}
+													},
+													"required": [
+														"__v",
+														"_id",
+														"updatedAt",
+														"createdAt",
+														"email",
+														"dob",
+														"gender",
+														"lastName",
+														"firstName"
+													],
+													"type": "object"
+												},
+												"message": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"user",
+												"message"
+											],
+											"type": "object"
 										}
-									},
-									"required": [
-										"user",
-										"message"
-									],
-									"type": "object"
+									]
 								}
 							}
 						}
@@ -120,7 +258,40 @@
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/CreateUser"
+								"properties": {
+									"password": {
+										"type": "string"
+									},
+									"email": {
+										"type": "string"
+									},
+									"dob": {
+										"type": "string"
+									},
+									"gender": {
+										"type": "string",
+										"enum": [
+											"male",
+											"female",
+											"others"
+										]
+									},
+									"lastName": {
+										"type": "string"
+									},
+									"firstName": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"password",
+									"email",
+									"dob",
+									"gender",
+									"lastName",
+									"firstName"
+								],
+								"type": "object"
 							}
 						}
 					}
@@ -166,19 +337,81 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"properties": {
-										"email": {
-											"type": "string"
+									"anyOf": [
+										{
+											"properties": {
+												"user": {},
+												"message": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"message"
+											],
+											"type": "object"
 										},
-										"message": {
-											"type": "string"
+										{
+											"properties": {
+												"user": {
+													"properties": {
+														"__v": {
+															"type": "number",
+															"format": "double"
+														},
+														"_id": {
+															"$ref": "#/components/schemas/mongoose.Types.ObjectId"
+														},
+														"updatedAt": {
+															"$ref": "#/components/schemas/NativeDate"
+														},
+														"createdAt": {
+															"$ref": "#/components/schemas/NativeDate"
+														},
+														"email": {
+															"type": "string"
+														},
+														"dob": {
+															"type": "string"
+														},
+														"gender": {
+															"type": "string",
+															"enum": [
+																"male",
+																"female",
+																"other"
+															]
+														},
+														"lastName": {
+															"type": "string"
+														},
+														"firstName": {
+															"type": "string"
+														}
+													},
+													"required": [
+														"__v",
+														"_id",
+														"updatedAt",
+														"createdAt",
+														"email",
+														"dob",
+														"gender",
+														"lastName",
+														"firstName"
+													],
+													"type": "object"
+												},
+												"message": {
+													"type": "string"
+												}
+											},
+											"required": [
+												"user",
+												"message"
+											],
+											"type": "object"
 										}
-									},
-									"required": [
-										"email",
-										"message"
-									],
-									"type": "object"
+									]
 								}
 							}
 						}
@@ -211,6 +444,96 @@
 						}
 					}
 				}
+			}
+		},
+		"/user/users": {
+			"get": {
+				"operationId": "GetAllUsers",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"allOf": [
+											{
+												"$ref": "#/components/schemas/mongoose.Document_unknown.__._firstName-string--lastName-string--gender-male-or-female-or-other--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps._id-string_._timestamps-true__"
+											},
+											{
+												"$ref": "#/components/schemas/Omit__firstName-string--lastName-string--gender-male-or-female-or-other--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps-and-__id-mongoose.Types.ObjectId_-and-___v-number_.id_"
+											},
+											{
+												"properties": {
+													"id": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"id"
+												],
+												"type": "object"
+											}
+										]
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/user/delete": {
+			"delete": {
+				"operationId": "DeleteUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					},
+					"404": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"message": {
+											"type": "string"
+										}
+									},
+									"required": [
+										"message"
+									],
+									"type": "object"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "email",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		}
 	},

@@ -15,44 +15,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LoginController = void 0;
+exports.UserController = void 0;
 const tsoa_1 = require("tsoa");
 const user_model_1 = __importDefault(require("../models/user.model"));
-const bcrypt_1 = __importDefault(require("bcrypt"));
-let LoginController = class LoginController extends tsoa_1.Controller {
-    async login(body) {
-        const existingUser = await user_model_1.default.findOne({ email: body.email });
-        if (!existingUser) {
-            this.setStatus(404);
-            return {
-                message: "User not found"
-            };
+let UserController = class UserController extends tsoa_1.Controller {
+    async deleteUser(email, notFound) {
+        const user = await user_model_1.default.findOneAndDelete({ email });
+        if (!user) {
+            return notFound(404, { message: "User not found" });
         }
-        const passwordMatch = await bcrypt_1.default.compare(body.password, existingUser.password);
-        if (!passwordMatch) {
-            this.setStatus(401);
-            return {
-                message: "Invalid credentials"
-            };
-        }
-        this.setStatus(200);
-        const { password, ...userWithoutPassword } = existingUser.toObject();
-        return {
-            message: "Login successful",
-            user: userWithoutPassword
-        };
+        return { message: "User deleted successfully" };
     }
 };
-exports.LoginController = LoginController;
+exports.UserController = UserController;
 __decorate([
-    (0, tsoa_1.Post)("login"),
-    __param(0, (0, tsoa_1.Body)()),
+    (0, tsoa_1.Delete)("delete"),
+    __param(0, (0, tsoa_1.Query)()),
+    __param(1, (0, tsoa_1.Res)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [String, Function]),
     __metadata("design:returntype", Promise)
-], LoginController.prototype, "login", null);
-exports.LoginController = LoginController = __decorate([
+], UserController.prototype, "deleteUser", null);
+exports.UserController = UserController = __decorate([
     (0, tsoa_1.Route)("user"),
     (0, tsoa_1.Tags)("User")
-], LoginController);
-//# sourceMappingURL=login.js.map
+], UserController);
+//# sourceMappingURL=delete.js.map

@@ -39,12 +39,12 @@ function RegisterRoutes(app) {
     const argsuserController_login = {
         body: { "in": "body", "name": "body", "required": true, "dataType": "nestedObjectLiteral", "nestedProperties": { "password": { "dataType": "string", "required": true }, "email": { "dataType": "string", "required": true } } },
     };
-    app.post('/user/login', ...((0, runtime_1.fetchMiddlewares)(login_1.userControllerlogin)), ...((0, runtime_1.fetchMiddlewares)(login_1.userControllerlogin.prototype.login)), async function userController_login(request, response, next) {
+    app.post('/user/login', ...((0, runtime_1.fetchMiddlewares)(login_1.LoginController)), ...((0, runtime_1.fetchMiddlewares)(login_1.LoginController.prototype.login)), async function userController_login(request, response, next) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         let validatedArgs = [];
         try {
             validatedArgs = templateService.getValidatedArgs({ args: argsuserController_login, request, response });
-            const controller = new login_1.userControllerlogin();
+            const controller = new login_1.LoginController();
             await templateService.apiHandler({
                 methodName: 'login',
                 controller,

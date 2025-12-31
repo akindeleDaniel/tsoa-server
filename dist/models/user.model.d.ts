@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 declare const _default: mongoose.Model<{
     firstName: string;
     lastName: string;
-    gender: "male" | "female" | "others";
+    gender: "male" | "female" | "other";
     dob: string;
     email: string;
     password: string;
@@ -11,7 +11,7 @@ declare const _default: mongoose.Model<{
 }, mongoose.Document<unknown, {}, {
     firstName: string;
     lastName: string;
-    gender: "male" | "female" | "others";
+    gender: "male" | "female" | "other";
     dob: string;
     email: string;
     password: string;
@@ -22,7 +22,7 @@ declare const _default: mongoose.Model<{
 }> & Omit<{
     firstName: string;
     lastName: string;
-    gender: "male" | "female" | "others";
+    gender: "male" | "female" | "other";
     dob: string;
     email: string;
     password: string;
@@ -37,14 +37,14 @@ declare const _default: mongoose.Model<{
 }, {
     firstName: string;
     lastName: string;
-    gender: "male" | "female" | "others";
+    gender: "male" | "female" | "other";
     dob: string;
     email: string;
     password: string;
 } & mongoose.DefaultTimestampProps, mongoose.Document<unknown, {}, {
     firstName: string;
     lastName: string;
-    gender: "male" | "female" | "others";
+    gender: "male" | "female" | "other";
     dob: string;
     email: string;
     password: string;
@@ -55,7 +55,7 @@ declare const _default: mongoose.Model<{
 }>> & Omit<{
     firstName: string;
     lastName: string;
-    gender: "male" | "female" | "others";
+    gender: "male" | "female" | "other";
     dob: string;
     email: string;
     password: string;
@@ -71,7 +71,7 @@ declare const _default: mongoose.Model<{
     [x: string]: mongoose.SchemaDefinitionProperty<any, any, mongoose.Document<unknown, {}, {
         firstName: string;
         lastName: string;
-        gender: "male" | "female" | "others";
+        gender: "male" | "female" | "other";
         dob: string;
         email: string;
         password: string;
@@ -82,7 +82,7 @@ declare const _default: mongoose.Model<{
     }>> & Omit<{
         firstName: string;
         lastName: string;
-        gender: "male" | "female" | "others";
+        gender: "male" | "female" | "other";
         dob: string;
         email: string;
         password: string;
@@ -96,7 +96,7 @@ declare const _default: mongoose.Model<{
 }, {
     firstName: string;
     lastName: string;
-    gender: "male" | "female" | "others";
+    gender: "male" | "female" | "other";
     dob: string;
     email: string;
     password: string;
@@ -109,7 +109,7 @@ declare const _default: mongoose.Model<{
 }>, {
     firstName: string;
     lastName: string;
-    gender: "male" | "female" | "others";
+    gender: "male" | "female" | "other";
     dob: string;
     email: string;
     password: string;
@@ -121,4 +121,4 @@ declare const _default: mongoose.Model<{
     __v: number;
 }>;
 export default _default;
-//# sourceMappingURL=User.d.ts.map
+//# sourceMappingURL=user.model.d.ts.map

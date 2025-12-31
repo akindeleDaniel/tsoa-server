@@ -15,37 +15,48 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userControllerRegister = void 0;
+exports.RegisterController = void 0;
 const tsoa_1 = require("tsoa");
+const user_model_1 = __importDefault(require("../models/user.model"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
-let userControllerRegister = class userControllerRegister extends tsoa_1.Controller {
+let RegisterController = class RegisterController extends tsoa_1.Controller {
     async register(body) {
+        const existingUser = await user_model_1.default.findOne({ email: body.email });
+        if (existingUser) {
+            this.setStatus(409);
+            return {
+                message: "User already exists"
+            };
+        }
         const hidePassword = await bcrypt_1.default.hash(body.password, 10);
-        const user = {
+        const user = new user_model_1.default({
             firstName: body.firstName,
             lastName: body.lastName,
             password: hidePassword,
             email: body.email,
             dob: body.dob,
             gender: body.gender
-        };
-        const { password, ...userWithoutPassword } = user;
+        });
+        await user.save();
+        this.setStatus(201);
+        const obj = typeof user.toObject === "function" ? user.toObject() : user;
+        const { password, ...userWithoutPassword } = obj;
         return {
             message: "Registration successful",
             user: userWithoutPassword
         };
     }
 };
-exports.userControllerRegister = userControllerRegister;
+exports.RegisterController = RegisterController;
 __decorate([
     (0, tsoa_1.Post)("register"),
     __param(0, (0, tsoa_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], userControllerRegister.prototype, "register", null);
-exports.userControllerRegister = userControllerRegister = __decorate([
+], RegisterController.prototype, "register", null);
+exports.RegisterController = RegisterController = __decorate([
     (0, tsoa_1.Route)("user"),
     (0, tsoa_1.Tags)("User")
-], userControllerRegister);
+], RegisterController);
 //# sourceMappingURL=register.js.map
