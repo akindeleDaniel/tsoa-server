@@ -21,14 +21,18 @@ const user_model_1 = __importDefault(require("../models/user.model"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 let LoginController = class LoginController extends tsoa_1.Controller {
     async login(body) {
-        const existingUser = await user_model_1.default.findOne({ email: body.email });
+        const email = body.email.toLowerCase().trim();
+        const existingUser = await user_model_1.default.findOne({ email });
         if (!existingUser) {
             this.setStatus(404);
             return {
                 message: "User not found"
             };
         }
+        console.log("Input password:", body.password);
+        console.log("Stored hash:", existingUser.password);
         const passwordMatch = await bcrypt_1.default.compare(body.password, existingUser.password);
+        console.log("Password match:", passwordMatch);
         if (!passwordMatch) {
             this.setStatus(401);
             return {

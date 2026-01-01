@@ -9,7 +9,7 @@ const connectDB = async () => {
         throw new Error("MONGO_URI is not defined in env");
     }
     try {
-        await mongoose_1.default.connect(process.env.MONGO_URI || "");
+        await mongoose_1.default.connect(process.env.MONGO_URI);
         console.log("MongoDB connected");
     }
     catch (error) {

@@ -8,7 +8,8 @@ export class LoginController extends Controller{
     public async login(
         @Body() body:{email:string; password:string}
     ) {
-        const existingUser= await userModel.findOne({email:body.email})
+        const email = body.email.toLowerCase().trim()
+        const existingUser= await userModel.findOne({email})
         if(!existingUser){
             this.setStatus(404)
             return {
