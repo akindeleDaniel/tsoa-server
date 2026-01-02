@@ -21,30 +21,39 @@ const user_model_1 = __importDefault(require("../models/user.model"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 let RegisterController = class RegisterController extends tsoa_1.Controller {
     async register(body) {
-        const existingUser = await user_model_1.default.findOne({ email: body.email });
-        if (existingUser) {
-            this.setStatus(409);
+        try {
+            const existingUser = await user_model_1.default.findOne({ email: body.email });
+            if (existingUser) {
+                this.setStatus(409);
+                return {
+                    message: "User already exists"
+                };
+            }
+            const hidePassword = await bcrypt_1.default.hash(body.password, 10);
+            const user = new user_model_1.default({
+                firstName: body.firstName,
+                lastName: body.lastName,
+                password: body.password,
+                email: body.email.toLowerCase().trim(),
+                dob: body.dob,
+                gender: body.gender
+            });
+            await user.save();
+            this.setStatus(201);
+            const obj = typeof user.toObject === "function" ? user.toObject() : user;
+            const { password, ...userWithoutPassword } = obj;
             return {
-                message: "User already exists"
+                message: "Registration successful",
+                user: userWithoutPassword
             };
         }
-        const hidePassword = await bcrypt_1.default.hash(body.password, 10);
-        const user = new user_model_1.default({
-            firstName: body.firstName,
-            lastName: body.lastName,
-            password: hidePassword,
-            email: body.email,
-            dob: body.dob,
-            gender: body.gender
-        });
-        await user.save();
-        this.setStatus(201);
-        const obj = typeof user.toObject === "function" ? user.toObject() : user;
-        const { password, ...userWithoutPassword } = obj;
-        return {
-            message: "Registration successful",
-            user: userWithoutPassword
-        };
+        catch (error) {
+            console.error(error);
+            this.setStatus(500);
+            return {
+                message: "Internal server error"
+            };
+        }
     }
 };
 exports.RegisterController = RegisterController;

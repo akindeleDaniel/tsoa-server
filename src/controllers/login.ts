@@ -8,6 +8,7 @@ export class LoginController extends Controller{
     public async login(
         @Body() body:{email:string; password:string}
     ) {
+        try {
         const email = body.email.toLowerCase().trim()
         const existingUser= await userModel.findOne({email})
         if(!existingUser){
@@ -30,5 +31,12 @@ export class LoginController extends Controller{
             message:"Login successful",
             user:userWithoutPassword
         }
+    } catch (error) {
+        console.error(error)
+        this.setStatus(500)
+        return {
+            message:"Internal server error"
+        }
+    }
     }
 }

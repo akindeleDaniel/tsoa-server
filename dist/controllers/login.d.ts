@@ -11,7 +11,7 @@ export declare class LoginController extends Controller {
         user: {
             firstName: string;
             lastName: string;
-            gender: "male" | "female" | "other";
+            gender: "male" | "female" | "others";
             dob: string;
             email: string;
             createdAt: NativeDate;

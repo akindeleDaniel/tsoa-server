@@ -27,30 +27,30 @@ const models: TsoaRoute.Models = {
         "type": {"ref":"mongoose.ObjectIdToString_Omit_mongoose.Require_id_DocType-and-TVirtuals_.__v__","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "mongoose.Document_unknown.__._firstName-string--lastName-string--gender-male-or-female-or-other--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps._id-string_._timestamps-true__": {
+    "mongoose.Document_unknown.__._firstName-string--lastName-string--gender-male-or-female-or-others--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps._id-string_._timestamps-true__": {
         "dataType": "refAlias",
         "type": {"ref":"mongoose.ObjectIdToString_Omit_mongoose.Require_id_DocType-and-TVirtuals_.__v__","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "Pick__firstName-string--lastName-string--gender-male-or-female-or-other--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps-and-__id-mongoose.Types.ObjectId_-and-___v-number_.Exclude_keyof_firstName-string--lastName-string--gender-male-or-female-or-other--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps-and-__id-mongoose.Types.ObjectId_-and-___v-number_.id__": {
+    "Pick__firstName-string--lastName-string--gender-male-or-female-or-others--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps-and-__id-mongoose.Types.ObjectId_-and-___v-number_.Exclude_keyof_firstName-string--lastName-string--gender-male-or-female-or-others--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps-and-__id-mongoose.Types.ObjectId_-and-___v-number_.id__": {
         "dataType": "refAlias",
         "type": {"dataType":"nestedObjectLiteral","nestedProperties":{},"validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "Omit__firstName-string--lastName-string--gender-male-or-female-or-other--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps-and-__id-mongoose.Types.ObjectId_-and-___v-number_.id_": {
+    "Omit__firstName-string--lastName-string--gender-male-or-female-or-others--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps-and-__id-mongoose.Types.ObjectId_-and-___v-number_.id_": {
         "dataType": "refAlias",
-        "type": {"ref":"Pick__firstName-string--lastName-string--gender-male-or-female-or-other--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps-and-__id-mongoose.Types.ObjectId_-and-___v-number_.Exclude_keyof_firstName-string--lastName-string--gender-male-or-female-or-other--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps-and-__id-mongoose.Types.ObjectId_-and-___v-number_.id__","validators":{}},
+        "type": {"ref":"Pick__firstName-string--lastName-string--gender-male-or-female-or-others--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps-and-__id-mongoose.Types.ObjectId_-and-___v-number_.Exclude_keyof_firstName-string--lastName-string--gender-male-or-female-or-others--dob-string--email-string--password-string_-and-mongoose.DefaultTimestampProps-and-__id-mongoose.Types.ObjectId_-and-___v-number_.id__","validators":{}},
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "UpdateUserRequest": {
         "dataType": "refObject",
         "properties": {
-            "email": {"dataType":"string"},
             "password": {"dataType":"string"},
             "firstName": {"dataType":"string"},
             "lastName": {"dataType":"string"},
             "dob": {"dataType":"string"},
-            "gender": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["male"]},{"dataType":"enum","enums":["female"]},{"dataType":"enum","enums":["other"]}]},
+            "email": {"dataType":"string"},
+            "gender": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["male"]},{"dataType":"enum","enums":["female"]},{"dataType":"enum","enums":["others"]}]},
         },
         "additionalProperties": false,
     },

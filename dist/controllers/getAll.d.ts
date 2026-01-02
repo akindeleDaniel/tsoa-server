@@ -3,7 +3,7 @@ export declare class getAllController extends Controller {
     getAllUsers(): Promise<(import("mongoose").Document<unknown, {}, {
         firstName: string;
         lastName: string;
-        gender: "male" | "female" | "other";
+        gender: "male" | "female" | "others";
         dob: string;
         email: string;
         password: string;
@@ -14,7 +14,7 @@ export declare class getAllController extends Controller {
     }> & Omit<{
         firstName: string;
         lastName: string;
-        gender: "male" | "female" | "other";
+        gender: "male" | "female" | "others";
         dob: string;
         email: string;
         password: string;

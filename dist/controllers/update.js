@@ -22,6 +22,7 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 let UpdateController = class UpdateController extends tsoa_1.Controller {
     async updateUser(email, body) {
         try {
+            const emailLower = email.toLowerCase().trim();
             const updateData = {};
             if (body.password) {
                 updateData.password = await bcrypt_1.default.hash(body.password, 10);
@@ -34,13 +35,20 @@ let UpdateController = class UpdateController extends tsoa_1.Controller {
                 updateData.dob = body.dob;
             if (body.gender)
                 updateData.gender = body.gender;
-            const updatedUser = await user_model_1.default.findByIdAndUpdate({ email }, { $set: updateData }, { new: true, select: "-password" });
+            if (body.email) {
+                this.setStatus(400);
+                return { message: "Email cannot be updated" };
+            }
+            const updatedUser = await user_model_1.default.findOneAndUpdate({ email: emailLower }, { $set: updateData }, { new: true, select: "-password" });
             if (!updatedUser) {
                 this.setStatus(404);
                 return { message: "User not found" };
             }
             this.setStatus(200);
-            return updatedUser;
+            return {
+                message: "User updated successfully",
+                user: updatedUser
+            };
         }
         catch (err) {
             console.error(err);

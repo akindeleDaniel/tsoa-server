@@ -15,8 +15,9 @@ export class RegisterController extends Controller{
         password:string
     }
 ){
-    const existingUser= await userModel.findOne({email:body.email})
-    if(existingUser){
+    try {
+        const existingUser= await userModel.findOne({email:body.email})
+        if(existingUser){
         this.setStatus(409)
         return {
             message: "User already exists"
@@ -28,8 +29,8 @@ export class RegisterController extends Controller{
     const user = new userModel({
         firstName:body.firstName,
         lastName:body.lastName,
-        password:hidePassword,
-        email:body.email,
+        password:body.password,
+        email:body.email.toLowerCase().trim(),
         dob:body.dob,
         gender:body.gender
     })
@@ -41,4 +42,12 @@ export class RegisterController extends Controller{
         message:"Registration successful",
         user:userWithoutPassword
     }
-}}
+} catch (error) {
+    console.error(error)
+    this.setStatus(500)
+    return {
+        message:"Internal server error"
+    }
+}
+}
+}
