@@ -15,5 +15,5 @@ app.use("/docs",swaggerUi.serve,swaggerUi.setup(swaggerDocument))
 RegisterRoutes(app)      
 app.listen(3000,() => {
     console.log("Server running on http://localhost:3000")
-    console.log("Swagger docs on http://localhost:3000/docs")
+    console.log("Swagger doc://localhost:3000/docss on http")
 })
